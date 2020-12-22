@@ -1,27 +1,19 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <v-prevent-dbclick >
-      <template v-slot="{startTap,status}">
-        <button @click="clickTest(1,startTap)">{{status?`不可点击`:`可以点击`}}</button>
-      </template>
-    </v-prevent-dbclick>
+    <DEMO1/>
   </div>
 </template>
 
 <script>
+import DEMO1 from './demo/type_1'
 
 export default {
   name: 'App',
   components: {
+    DEMO1
   },
   methods:{
-    clickTest(v,startTap){
-      console.log(`It's click test.`)
-      setTimeout(() => {
-        startTap()
-      }, 3000);
-    }
   }
 }
 </script>
