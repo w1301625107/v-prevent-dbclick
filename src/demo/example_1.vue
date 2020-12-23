@@ -3,10 +3,8 @@
     <template v-slot="{onTap,status}">
       <button v-if="!status"
               key="1"
-              @click="clickTest(1,onTap)">可以点击</button>
-      <button v-else
-              key="2"
-              @click="unclickable()">不可点击</button>
+              @click="clickTest(1,onTap)">保存</button>
+      <span v-else>保存中...</span>
     </template>
   </v-prevent-dbclick>
 </template>
@@ -17,13 +15,9 @@ export { desc } from "./example_1";
 export default {
   methods: {
     clickTest(v, onTap) {
-      console.log(`It's click test.`);
       setTimeout(() => {
         onTap();
       }, 3000);
-    },
-    unclickable() {
-      console.log(`It's unclickable.`);
     },
   },
 };

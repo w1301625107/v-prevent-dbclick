@@ -3,7 +3,9 @@
        @click.capture="tapClick">
     <slot :onTap="onTap"
           :status="status"
-          :customInfo="customInfo">
+          :customInfo="customInfo"
+          :sendInfo="sendInfo"
+          :isEmitter="isEmitter">
       put something here!!!like a button!!!
     </slot>
   </div>
@@ -43,6 +45,7 @@ export default {
     return {
       status: false,
       counting: READY,
+      isEmitter:false,
       timer: undefined,
       customInfo: undefined,
       leaveGroup: noop,
@@ -85,14 +88,16 @@ export default {
         }
 
         let op = (this.op = {
-          on: (info) => {
+          on: () => {
             this.status = false;
-            this.customInfo = info;
           },
           off: () => {
             this.status = true;
             this.clearDebounce(); // 将其他组员的延迟点击清理掉,以触发者为准
           },
+          mes: (info) =>{
+            this.customInfo = info
+          }
         });
         g.sub.push(op);
 
@@ -118,6 +123,10 @@ export default {
           this.leaveGroup = noop;
         };
       }
+    },
+    sendInfo(info){
+      this.customInfo = info
+      this.noticeGroup('mes',info)
     },
     noticeGroup(type,info) {
       let g = this.getGroup(this.group)
@@ -176,14 +185,15 @@ export default {
         }
       }
     },
-    onTap(info) {
+    onTap() {
       console.log(`it's release now.`);
+      this.isEmitter = false
       this.status = false;
-      this.customInfo = info;
       this.$emit("onTap");
-      this.noticeGroup("on",info);
+      this.noticeGroup("on");
     },
     offTap() {
+      this.isEmitter = true
       this.status = true;
       this.$emit("offTap");
       this.noticeGroup("off");
