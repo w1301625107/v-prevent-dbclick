@@ -64,12 +64,24 @@ export default {
     this.clearDebounce();
   },
   methods: {
+    getGroup(key){
+      if (typeof key == "string" && key.trim() != "") {
+        let g = GROUP[key];
+        if (g) {
+          return g
+        }
+      }
+      return undefined
+    },
     jionGroup() {
       let groupName = this.group;
       if (typeof groupName == "string" && groupName.trim() != "") {
         let g = GROUP[groupName];
         if (!g) {
-          g = GROUP[groupName] = [];
+          g = GROUP[groupName] = {
+            sub:[],
+            obs:undefined
+          };
         }
 
         let op = (this.op = {
@@ -79,32 +91,43 @@ export default {
           },
           off: () => {
             this.status = true;
-            this.clearDebounce(); // 将其他组的延迟点击清理掉
+            this.clearDebounce(); // 将其他组员的延迟点击清理掉,以触发者为准
           },
         });
-        g.push(op);
+        g.sub.push(op);
+
+        if(g.obs){ // 新加入的组员需要同步组内状态
+          this.status = g.obs.status
+          this.customInfo = g.obs.customInfo
+        }
+
         this.leaveGroup = () => {
           this.status = false;
-          let idx = g.findIndex((item) => item == op);
+          let idx = g.sub.findIndex((item) => item == op);
           if (idx > -1) {
-            g.splice(idx, 1);
+            g.sub.splice(idx, 1);
+          }
+          if(g.obs == this){
+            g.obs = undefined
+            // 如果触发者是自己，需要通知其他取消状态
+            if(this.status == true){
+              this.noticeGroup('on')
+            }
+            
           }
           this.leaveGroup = noop;
         };
       }
     },
-    noticeGroup(type) {
-      let groupName = this.group;
-      if (typeof groupName == "string" && groupName.trim() != "") {
-        let g = GROUP[groupName];
-        if (!g) {
-          g = [];
-        }
-        g.forEach((op) => {
+    noticeGroup(type,info) {
+      let g = this.getGroup(this.group)
+      if (g) {
+        g.obs = this
+        g.sub.forEach((op) => {
           if (this.op == op) {
             return;
           }
-          op[type]();
+          op[type](info);
         });
       }
     },
@@ -156,9 +179,9 @@ export default {
     onTap(info) {
       console.log(`it's release now.`);
       this.status = false;
-      this.$emit("onTap");
-      this.noticeGroup("on");
       this.customInfo = info;
+      this.$emit("onTap");
+      this.noticeGroup("on",info);
     },
     offTap() {
       this.status = true;
