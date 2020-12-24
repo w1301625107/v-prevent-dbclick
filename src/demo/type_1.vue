@@ -1,16 +1,23 @@
 <template>
-<div>
-    <section class="demo" v-for="(comp,index) in allComponent" :key="index">
-      <div class="content">
-        <h2>{{comp.desc.header}}</h2>
-        <component :is="comp.file"/>
-      </div>
-      <highlightjs v-if="comp.desc.desc" language='markDown' :code="comp.desc.desc"/>
-      <highlightjs language='javascript' :code="comp.desc.tpl" />
-    </section>
-
-</div>
-  
+  <div class="contain">
+      <nav>
+        <ul>
+          <li v-for="(comp,index) in allComponent" :key="index">
+            <a  :href="`#${comp.desc.header}`">{{comp.desc.header}}</a>
+          </li>
+        </ul>
+      </nav>
+      <article>
+        <section class="demo" v-for="(comp,index) in allComponent" :key="index">
+          <div :id="comp.desc.header" class="content">
+            <h2>{{comp.desc.header}}</h2>
+            <component :is="comp.file"/>
+          </div>
+          <highlightjs v-if="comp.desc.desc" language='markDown' :code="comp.desc.desc"/>
+          <highlightjs language='javascript' :code="comp.desc.tpl" />
+        </section>
+      </article>
+  </div>
 </template>
 
 <script>
@@ -27,7 +34,6 @@ files.keys().forEach(element => {
     desc:files(element).desc||{}
   })
 });
-console.log("🚀 ~ file: type_1.vue ~ line 26 ~ allComponent[files ~ allComponent", allComponent)
 export default {
   data(){
     return{
@@ -40,6 +46,16 @@ export default {
 </script>
 
 <style scoped>
+.contain{
+  display: flex;
+
+  overflow: scroll;
+  overflow-x: hidden;
+}
+article{
+  flex: 1;
+  margin-left: 250px;
+}
 .demo:hover{
   box-shadow: 0 0 8px 0 rgba(232,237,250,.6), 0 2px 4px 0 rgba(232,237,250,.5);
 }
@@ -55,5 +71,27 @@ export default {
 .demo >>>.hljs {
   padding: 10px;
   text-align: left;
+}
+nav{
+  width: 250px;
+  position: fixed;
+}
+ul{
+  padding-left: 0;
+}
+ul li{
+  list-style: none;
+  text-align: left;
+  margin: 20px 0;
+}
+
+ul li a{
+  color: #444;
+    font-size: 14px;
+  text-decoration: none;
+}
+
+ul li a:hover{
+  color: #50bfff;
 }
 </style>
