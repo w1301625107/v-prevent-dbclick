@@ -28,7 +28,7 @@ Vue.use(PreventDbClick);
 
 ### 使用链接引入
 ```html
-<script src="https://unpkg.com/v-gantt-chart/dist/v-prevent-dbclick.umd.js"></script>
+<script src="https://unpkg.com/v-prevent-dbclick/dist/v-prevent-dbclick.umd.js"></script>
 ```
 
 ```html

@@ -1,5 +1,5 @@
 <template>
-  <div class="pdc_wrapper"
+  <div class="pdc_wrapper" style="display: inline;display: contents;"
        @click.capture="tapClick">
     <slot :onTap="onTap"
           :status="status"
@@ -206,11 +206,3 @@ export default {
   },
 };
 </script>
-
-
-<style scoped>
-.pdc_wrapper {
-  display: inline;
-  display: contents;
-}
-</style>
