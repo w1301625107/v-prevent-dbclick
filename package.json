@@ -1,0 +1,74 @@
+{
+  "name": "v-prevent-dbclick",
+  "version": "0.1.0",
+  "description": "A component that avoids repeated clicks on the slot.",
+  "main": "dist/v-gantt-chart.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/w1301625107/v-prevent-dbclick.git"
+  },
+  "bugs": {
+    "url": "https://github.com/w1301625107/v-prevent-dbclick/issues"
+  },
+  "homepage": "https://github.com/w1301625107/v-prevent-dbclick#readme",
+  "keywords": [
+    "v-prevent-dbclick",
+    "prevent-dbclick",
+    "dbclick"
+  ],
+  "author": "wuchouchou",
+  "license": "MIT",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "npm run lint --fix && cross-env NODE_ENV=DEMO vue-cli-service build ",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint",
+    "libbuild": "npm run lint  --fix && vue-cli-service build --target lib --name v-prevent-dbclick src/lib/index.js"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "highlight.js": "^10.4.1",
+    "vue": "^2.6.11"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "babel-eslint": "^10.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "lint-staged": "^10.5.3",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "vue-cli-service lint"
+    ]
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
