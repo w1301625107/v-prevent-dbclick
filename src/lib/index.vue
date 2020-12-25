@@ -1,7 +1,7 @@
 <template>
-  <div class="pdc_wrapper"
+  <div class="pdc_wrapper" style="display: inline;display: contents;"
        @click.capture="tapClick">
-    <slot :onTap="onTap"
+    <slot :release="release"
           :status="status"
           :customInfo="customInfo"
           :sendInfo="sendInfo"
@@ -169,7 +169,7 @@ export default {
         return;
       }
 
-      this.offTap();
+      this.trap();
       this.clearDebounce();
     },
     fireOriginEvent(el) {
@@ -185,17 +185,17 @@ export default {
         }
       }
     },
-    onTap() {
+    release() {
       console.log(`it's release now.`);
       this.isEmitter = false
       this.status = false;
-      this.$emit("onTap");
+      this.$emit("release");
       this.noticeGroup("on");
     },
-    offTap() {
+    trap() {
       this.isEmitter = true
       this.status = true;
-      this.$emit("offTap");
+      this.$emit("trap");
       this.noticeGroup("off");
     },
     clearDebounce() {
@@ -206,11 +206,3 @@ export default {
   },
 };
 </script>
-
-
-<style scoped>
-.pdc_wrapper {
-  display: inline;
-  display: contents;
-}
-</style>

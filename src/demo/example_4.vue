@@ -1,9 +1,9 @@
 <template>
   <v-prevent-dbclick>
-    <template v-slot="{onTap,status,customInfo,sendInfo}">
+    <template v-slot="{release,status,customInfo,sendInfo}">
       <button v-if="!status"
               key="1"
-              @click="clickTest(1,onTap,sendInfo)">保存</button>
+              @click="clickTest(1,release,sendInfo)">保存</button>
       <span v-else>保存中...</span>
       <span v-if="customInfo">{{customInfo}}</span>
     </template>
@@ -15,10 +15,10 @@ export { desc } from "./example_4";
 
 export default {
   methods: {
-    clickTest(v, onTap,sendInfo) {
+    clickTest(v, release,sendInfo) {
       setTimeout(() => {
         sendInfo(Math.random()>0.5?'执行出错了哦':'成功了哦')
-        onTap();
+        release();
       }, 3000);
     },
   },
