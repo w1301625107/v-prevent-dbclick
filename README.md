@@ -53,8 +53,8 @@ Vue.use(PreventDbClick);
 ```html
 <template>
   <v-prevent-dbclick>
-    <template v-slot="{startTap,status}">
-      <button @click="clickTest(1,startTap)">
+    <template v-slot="{release,status}">
+      <button @click="save(release)">
         {{status?`不可点击`:`可以点击`}}
       </button>
     </template>
@@ -66,11 +66,11 @@ Vue.use(PreventDbClick);
 <script>
   export default {
     methods:{
-      clickTest(v,startTap){
-        console.log(`It's click test.`)
-        setTimeout(() => {
-          startTap()
-        }, 3000);
+      save(release){
+        Promise.resolve('success').then(value=>{
+          // do something
+          release()
+        })
       }
     }
   }
@@ -83,10 +83,10 @@ Vue.use(PreventDbClick);
 
 |      param      | required |  type   |  default  | describe                                                       |
 | :-------------: | :------: | :-----: | :-------: | :------------------------------------------------------------- |
-|    debounce     |          | number  |     0     | 就是 `debounce`啦                                               |
-|      group      |          | string  | undefined | 分组名称，`相同组的状态将会同步`                     |
-| stopPropagation |          | boolean |   true    | 阻止冒泡，默认在`status`为`true`时，阻止 slot 内所有的点击操作 |
-|    doNothing    |          | boolean |   false   | 什么都不做，可以接收同一个`group`传递的状态                   |
+|    debounce     |    ❌      | number  |     0     | 就是 `debounce`啦                                               |
+|      group      |    ❌      | string  | undefined | 分组名称，`相同组的状态将会同步`                     |
+| stopPropagation |    ❌      | boolean |   true    | 阻止冒泡，默认在`status`为`true`时，阻止 slot 内所有的点击操作 |
+|    doNothing    |    ❌      | boolean |   false   | 什么都不做，可以接收同一个`group`传递的状态                   |
 
 > 如果你需要使用`throttle`，只需要`定时调用onTap`即可
 
@@ -99,7 +99,7 @@ Vue.use(PreventDbClick);
 |   status   |    Boolean     | 代表当前状态是否是点击过                                     |
 | isEmitter  |    Boolean     | 代表当前状态的`改变`是否是`当前 v-prevent-dbclick 触发  `        |
 | customInfo |      Any       | 调用 `sendInfo` 时传入的数据，可以用来传递各种东西，比如消息 |
-|   onTap    |    Function    | onTap `调用`后将使状态变为`未点击过`，                       |
+|   release    |    Function    | release `调用`后将使状态变为`未点击过`，                       |
 |  sendInfo  | Function(info) | 设置自定义的 `customInfo`                                    |
 
 ## caution
@@ -110,8 +110,8 @@ Vue.use(PreventDbClick);
 2.6+语法
 <template>
   <v-prevent-dbclick>
-    <template v-slot="{startTap,status}">
-      <button @click="clickTest(1,startTap)">
+    <template v-slot="{release,status}">
+      <button @click="clickTest(release)">
         {{status?`不可点击`:`可以点击`}}
       </button>
     </template>
@@ -124,10 +124,15 @@ Vue.use(PreventDbClick);
 <template>
   <v-prevent-dbclick>
     <template slot-scope="{data,item}">
-      <button @click="clickTest(1,startTap)">
+      <button @click="clickTest(release)">
         {{status?`不可点击`:`可以点击`}}
       </button>
     </template>
   </v-prevent-dbclick>
 </template>
 ```
+
+## changelog
+0.1.1
+- 替换更恰当的命名
+- 打包体积优化

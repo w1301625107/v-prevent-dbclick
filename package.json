@@ -1,6 +1,6 @@
 {
   "name": "v-prevent-dbclick",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A component that avoids repeated clicks on the slot.",
   "main": "dist/v-gantt-chart.js",
   "files": [
@@ -17,7 +17,8 @@
   "keywords": [
     "v-prevent-dbclick",
     "prevent-dbclick",
-    "dbclick"
+    "dbclick",
+    "vue"
   ],
   "author": "wuchouchou",
   "license": "MIT",

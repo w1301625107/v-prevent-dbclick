@@ -1,9 +1,9 @@
 const tpl = `<template>
   <v-prevent-dbclick>
-    <template v-slot="{onTap,status}">
+    <template v-slot="{release,status}">
       <button v-if="!status"
               key="1"
-              @click="clickTest(1,onTap)">保存</button>
+              @click="clickTest(1,release)">保存</button>
       <span v-else>保存中...</span>
     </template>
   </v-prevent-dbclick>
@@ -12,9 +12,9 @@ const tpl = `<template>
 <script>
 export default {
   methods: {
-    clickTest(v, onTap) {
+    clickTest(v, release) {
       setTimeout(() => {
-        onTap();
+        release();
       }, 3000);
     },
   },

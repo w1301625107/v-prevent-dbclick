@@ -212,12 +212,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"77e8276c-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/index.vue?vue&type=template&id=82885cfe&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"pdc_wrapper",staticStyle:{"display":"contents"},on:{"!click":function($event){return _vm.tapClick($event)}}},[_vm._t("default",[_vm._v(" put something here!!!like a button!!! ")],{"onTap":_vm.onTap,"status":_vm.status,"customInfo":_vm.customInfo,"sendInfo":_vm.sendInfo,"isEmitter":_vm.isEmitter})],2)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7dd4cf84-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/index.vue?vue&type=template&id=755aaf80&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"pdc_wrapper",staticStyle:{"display":"contents"},on:{"!click":function($event){return _vm.tapClick($event)}}},[_vm._t("default",[_vm._v(" put something here!!!like a button!!! ")],{"release":_vm.release,"status":_vm.status,"customInfo":_vm.customInfo,"sendInfo":_vm.sendInfo,"isEmitter":_vm.isEmitter})],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/index.vue?vue&type=template&id=82885cfe&
+// CONCATENATED MODULE: ./src/lib/index.vue?vue&type=template&id=755aaf80&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/index.vue?vue&type=script&lang=js&
 //
@@ -403,7 +403,7 @@ var noop = function noop() {};
         return;
       }
 
-      this.offTap();
+      this.trap();
       this.clearDebounce();
     },
     fireOriginEvent: function fireOriginEvent(el) {
@@ -419,17 +419,17 @@ var noop = function noop() {};
         }
       }
     },
-    onTap: function onTap() {
+    release: function release() {
       console.log("it's release now.");
       this.isEmitter = false;
       this.status = false;
-      this.$emit("onTap");
+      this.$emit("release");
       this.noticeGroup("on");
     },
-    offTap: function offTap() {
+    trap: function trap() {
       this.isEmitter = true;
       this.status = true;
-      this.$emit("offTap");
+      this.$emit("trap");
       this.noticeGroup("off");
     },
     clearDebounce: function clearDebounce() {
@@ -566,7 +566,7 @@ var component = normalizeComponent(
 
 var myPlugin = {
   // eslint-disable-next-line
-  version: "0.1.0",
+  version: "0.1.1",
   // 该插件有一个install方法
   // 方法的第一个参数是传入的Vue，第二个参数可以插件的自定义参数
   // eslint-disable-next-line
