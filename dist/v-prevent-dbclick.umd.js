@@ -212,12 +212,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"7dd4cf84-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/index.vue?vue&type=template&id=755aaf80&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"2ac7c2ca-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/index.vue?vue&type=template&id=69f2c18b&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"pdc_wrapper",staticStyle:{"display":"contents"},on:{"!click":function($event){return _vm.tapClick($event)}}},[_vm._t("default",[_vm._v(" put something here!!!like a button!!! ")],{"release":_vm.release,"status":_vm.status,"customInfo":_vm.customInfo,"sendInfo":_vm.sendInfo,"isEmitter":_vm.isEmitter})],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/lib/index.vue?vue&type=template&id=755aaf80&
+// CONCATENATED MODULE: ./src/lib/index.vue?vue&type=template&id=69f2c18b&
 
 // CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--12-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/lib/index.vue?vue&type=script&lang=js&
 //
@@ -242,6 +242,10 @@ var END = "END"; // counting status
 var GROUP = {};
 
 var noop = function noop() {};
+
+function log(message) {
+  if (false) {}
+}
 
 /* harmony default export */ var libvue_type_script_lang_js_ = ({
   props: {
@@ -348,7 +352,7 @@ var noop = function noop() {};
           if (g.obs == _this) {
             g.obs = undefined; // 如果触发者是自己，需要通知其他取消状态
 
-            if (_this.status == true) {
+            if (_this.isEmitter == true) {
               _this.noticeGroup('on');
             }
           }
@@ -391,7 +395,7 @@ var noop = function noop() {};
       }
 
       if (typeof this.debounce == "number" && this.debounce > 0 && [RUNNING, READY].includes(this.counting)) {
-        console.log("It's set timer");
+        log("It's set timer");
         this.counting = RUNNING;
         clearTimeout(this.timer);
         this.timer = setTimeout(function () {
@@ -420,7 +424,7 @@ var noop = function noop() {};
       }
     },
     release: function release() {
-      console.log("it's release now.");
+      log("it's release now.");
       this.isEmitter = false;
       this.status = false;
       this.$emit("release");
@@ -566,7 +570,7 @@ var component = normalizeComponent(
 
 var myPlugin = {
   // eslint-disable-next-line
-  version: "0.1.1",
+  version: "0.1.2",
   // 该插件有一个install方法
   // 方法的第一个参数是传入的Vue，第二个参数可以插件的自定义参数
   // eslint-disable-next-line
