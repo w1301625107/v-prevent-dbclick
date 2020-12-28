@@ -23,6 +23,13 @@ const GROUP = {};
 
 const noop = () => {};
 
+function log ( message) {
+  if (process.env.NODE_ENV !== 'production') {
+    // useful when testing
+    console.log(`[v-prvent-dbclik] ${message}`)
+  }
+}
+
 export default {
   props: {
     debounce: {
@@ -115,7 +122,7 @@ export default {
           if(g.obs == this){
             g.obs = undefined
             // 如果触发者是自己，需要通知其他取消状态
-            if(this.status == true){
+            if(this.isEmitter == true){
               this.noticeGroup('on')
             }
             
@@ -156,7 +163,7 @@ export default {
         this.debounce > 0 &&
         [RUNNING, READY].includes(this.counting)
       ) {
-        console.log(`It's set timer`);
+        log(`It's set timer`);
 
         this.counting = RUNNING;
         clearTimeout(this.timer);
@@ -186,7 +193,7 @@ export default {
       }
     },
     release() {
-      console.log(`it's release now.`);
+      log(`it's release now.`);
       this.isEmitter = false
       this.status = false;
       this.$emit("release");

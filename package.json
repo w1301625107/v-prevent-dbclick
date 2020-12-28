@@ -1,6 +1,6 @@
 {
   "name": "v-prevent-dbclick",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A component that avoids repeated clicks on the slot.",
   "main": "dist/v-gantt-chart.js",
   "files": [
@@ -37,8 +37,11 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-unit-mocha": "^4.5.9",
     "@vue/cli-service": "~4.5.0",
+    "@vue/test-utils": "^1.1.2",
     "babel-eslint": "^10.1.0",
+    "chai": "^4.2.0",
     "cross-env": "6.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",

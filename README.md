@@ -133,6 +133,10 @@ Vue.use(PreventDbClick);
 ```
 
 ## changelog
+0.1.2
+- add test case
+- fix isEmitter error
+
 0.1.1
 - 替换更恰当的命名
 - 打包体积优化
