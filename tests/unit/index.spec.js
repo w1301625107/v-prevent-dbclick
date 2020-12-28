@@ -1,13 +1,11 @@
 /* eslint-disable */
 import { expect } from "chai"
-import { mount, render } from "@vue/test-utils"
+import { mount } from "@vue/test-utils"
 import PreventDbClick from "../../src/lib/index.vue"
 import Vue from "vue"
 Vue.config.productionTip = false
 
-function noop() {}
-
-describe("v-prevent-dbclick测试", () => {
+describe("v-prevent-dbclick 非group测试", () => {
   describe("基本测试", () => {
     let clickCount = 0
     let slotPropFc = {}
@@ -34,20 +32,20 @@ describe("v-prevent-dbclick测试", () => {
       },
     })
 
-    it("first click",  (done) => {
+    it("first click", (done) => {
       wrapper.find("#foo").trigger("click")
       expect(clickCount).to.equal(1)
       expect(wrapper.vm.status).to.equal(true)
       done()
     })
 
-    it("double click",  (done) => {
+    it("double click", (done) => {
       wrapper.find("#foo").trigger("click")
       expect(clickCount).to.equal(1)
       done()
     })
 
-    it("release",  (done) => {
+    it("release", (done) => {
       slotPropFc.release()
       expect(wrapper.vm.status).to.equal(false)
       wrapper.find("#foo").trigger("click")
@@ -55,21 +53,19 @@ describe("v-prevent-dbclick测试", () => {
       done()
     })
 
-    it("customInfo",  (done) => {
-      slotPropFc.sendInfo('test')
-      expect(wrapper.vm.customInfo).to.equal('test')
+    it("customInfo", (done) => {
+      slotPropFc.sendInfo("test")
+      expect(wrapper.vm.customInfo).to.equal("test")
       done()
     })
   })
-
-
 
   describe("debounce", () => {
     let clickCount = 0
 
     const wrapper = mount(PreventDbClick, {
-      propsData:{
-        debounce:1000
+      propsData: {
+        debounce: 1000,
       },
       scopedSlots: {
         default: function(arg) {
@@ -89,16 +85,49 @@ describe("v-prevent-dbclick测试", () => {
       },
     })
 
-    it("click",  (done) => {
+    it("click", (done) => {
       wrapper.find("#foo").trigger("click")
       expect(clickCount).to.equal(0)
       expect(wrapper.vm.status).to.equal(false)
       setTimeout(() => {
         expect(clickCount).to.equal(1)
         done()
-      }, 1100);
+      }, 1100)
     })
   })
 
-  
+  describe("stopPropagation value is false", () => {
+    let clickCount = 0
+
+    const wrapper = mount(PreventDbClick, {
+      propsData: {
+        stopPropagation: false,
+      },
+      scopedSlots: {
+        default: function(arg) {
+          return this.$createElement(
+            "button",
+            {
+              on: {
+                click: () => clickCount++,
+              },
+              attrs: {
+                id: "foo",
+              },
+            },
+            "click here"
+          )
+        },
+      },
+    })
+
+    it("click", (done) => {
+      wrapper.find("#foo").trigger("click")
+      expect(clickCount).to.equal(1)
+      wrapper.find("#foo").trigger("click")
+      expect(clickCount).to.equal(2)
+
+      done()
+    })
+  })
 })

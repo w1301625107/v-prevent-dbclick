@@ -122,7 +122,7 @@ export default {
           if(g.obs == this){
             g.obs = undefined
             // 如果触发者是自己，需要通知其他取消状态
-            if(this.status == true){
+            if(this.isEmitter == true){
               this.noticeGroup('on')
             }
             
